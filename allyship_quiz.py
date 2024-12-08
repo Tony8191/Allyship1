@@ -1,5 +1,5 @@
 import streamlit as st
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 # Questions for the quiz
 questions = {
@@ -28,13 +28,15 @@ questions = {
 def generate_chart(scores):
     archetypes = list(scores.keys())
     values = list(scores.values())
-    
-    plt.figure(figsize=(8, 6))
-    plt.bar(archetypes, values, color='skyblue')
-    plt.title("Allyship Archetype Scores")
-    plt.xlabel("Archetype")
-    plt.ylabel("Score")
-    st.pyplot(plt)
+
+    fig = go.Figure(data=[go.Bar(x=archetypes, y=values)])
+    fig.update_layout(
+        title="Allyship Archetype Scores",
+        xaxis_title="Archetype",
+        yaxis_title="Score",
+        template="plotly_white"
+    )
+    st.plotly_chart(fig)
 
 # Streamlit App
 st.title("Allyship Archetype Quiz")
